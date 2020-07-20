@@ -17,7 +17,7 @@ class LoginScreen extends Component {
       <View style={styles.container}>
         <StatusBar barStyle="dark-content" />
         <View>
-          <Text style={{ fontSize: 25 }}>버스정류장 선택페이지</Text>
+          <Text style={{ fontSize: 25 }}>버스정류장123 선택페이지</Text>
         </View>
         <TouchableOpacity
           onPress={() =>
