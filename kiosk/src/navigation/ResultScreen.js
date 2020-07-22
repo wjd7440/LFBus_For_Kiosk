@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import { NavigationService } from "../common";
 
-class LoginScreen extends Component {
+class ResultScreen extends Component {
   constructor(props) {
     super(props);
   }
@@ -17,15 +17,10 @@ class LoginScreen extends Component {
       <View style={styles.container}>
         <StatusBar barStyle="dark-content" />
         <View>
-          <Text style={{ fontSize: 25 }}>버스정류장 선택페이지</Text>
+          <Text style={{ fontSize: 25 }}>저상버스 도착 현황 페이지</Text>
         </View>
         <TouchableOpacity
-          onPress={() =>
-            NavigationService.navigate("저상버스도착현황", {
-              screen: "저상버스도착현황",
-              info: "information",
-            })
-          }
+          onPress={() => NavigationService.back()}
           style={{
             justifyContent: "flex-end",
             backgroundColor: "rgb(87,174,198)",
@@ -35,7 +30,7 @@ class LoginScreen extends Component {
           }}
         >
           <Text style={{ fontSize: 20, textAlign: "center", color: "white" }}>
-            다음
+            뒤로
           </Text>
         </TouchableOpacity>
       </View>
@@ -51,4 +46,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LoginScreen;
+export default ResultScreen;

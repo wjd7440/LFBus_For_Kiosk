@@ -1,12 +1,12 @@
 import { createAppContainer, createSwitchNavigator } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
-import LoginScreen from "./LoginScreen";
+import ResultScreen from "./ResultScreen";
 import HomeScreen from "./HomeScreen";
 
 const AuthStack = createStackNavigator(
   {
-    버스정류장선택: { screen: LoginScreen },
-    저상버스도착현황: { screen: HomeScreen },
+    버스정류장선택: { screen: HomeScreen },
+    저상버스도착현황: { screen: ResultScreen },
   },
   {
     initialRouteName: "버스정류장선택",
