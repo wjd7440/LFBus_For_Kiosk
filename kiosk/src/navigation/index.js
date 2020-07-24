@@ -1,7 +1,7 @@
 import { createAppContainer, createSwitchNavigator } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
-import ResultScreen from "./ResultScreen";
-import HomeScreen from "./HomeScreen";
+import ResultScreen from "../screens/ResultScreen";
+import HomeScreen from "../screens/HomeScreen";
 
 const AuthStack = createStackNavigator(
   {
