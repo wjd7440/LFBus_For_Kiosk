@@ -13,7 +13,9 @@ import { NavigationService } from "../common";
 
 export default ({ navigation }) => {
   const { data, loading, refetch } = useQuery(BUS_STATION_LIST_QUERY);
-  const items = data.KioskBusStationList.busStations;
+  const items = !loading && data.KioskBusStationList.busStations;
+
+  loading ? console.log("로딩중") : console.log(items);
 
   return (
     <Fragment>
