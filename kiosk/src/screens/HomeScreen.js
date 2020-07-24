@@ -12,10 +12,12 @@ import {
 import { NavigationService } from "../common";
 
 export default ({ navigation }) => {
-  const { data, loading, refetch } = useQuery(BUS_STATION_LIST_QUERY);
+  const { data, loading, refetch } = useQuery(BUS_STATION_LIST_QUERY, {
+    fetchPolicy: "network-only",
+  });
   const items = !loading && data.KioskBusStationList.busStations;
 
-  loading ? console.log("로딩중") : console.log(items);
+  loading ? console.log("로딩중") : console.log(data.KioskBusStationList.count);
 
   return (
     <Fragment>
