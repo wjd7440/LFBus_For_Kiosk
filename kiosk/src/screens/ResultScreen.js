@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState, useEffect, Component } from "react";
 import {
   View,
   Text,
@@ -7,36 +7,57 @@ import {
   StatusBar,
 } from "react-native";
 import { NavigationService } from "../common";
+import axios from "axios";
 
-class ResultScreen extends Component {
-  constructor(props) {
-    super(props);
+export default ({ navigation }) => {
+  const [data, setData] = useState([]);
+  const [loaded, setLoaded] = useState(false);
+
+  const API_KEY =
+    "8Ob9wZKBcsyHDD1I%2FlSyl%2B6gkCiD5d%2ByEGpViOo9efKiifmfRRN%2BeZg3WGMxDPVm11UXBGhpJolfP1Zj8BpqDw%3D%3D";
+  const parseString = require("react-native-xml2js").parseString;
+  const busStationNo = navigation.getParam("busStationNo");
+
+  const dataLoader = () => {
+    axios({
+      url: `http://openapitraffic.daejeon.go.kr/api/rest/arrive/getArrInfoByStopID?serviceKey=${API_KEY}&BusStopID=${busStationNo}`,
+      method: "get",
+    }).then((response) => {
+      setData(response);
+      setLoaded(true);
+    });
+  };
+
+  useEffect(() => {
+    dataLoader();
+  }, []);
+
+  if (loaded) {
+    console.log(data);
   }
-  render() {
-    return (
-      <View style={styles.container}>
-        <StatusBar barStyle="dark-content" />
-        <View>
-          <Text style={{ fontSize: 25 }}>저상버스 도착 현황 페이지</Text>
-        </View>
-        <TouchableOpacity
-          onPress={() => NavigationService.back()}
-          style={{
-            justifyContent: "flex-end",
-            backgroundColor: "rgb(87,174,198)",
-            padding: 20,
-            marginTop: 20,
-            borderRadius: 30,
-          }}
-        >
-          <Text style={{ fontSize: 20, textAlign: "center", color: "white" }}>
-            뒤로
-          </Text>
-        </TouchableOpacity>
-      </View>
-    );
-  }
-}
+
+  // const data = () => {
+  //   return fetch(
+  //     `http://openapitraffic.daejeon.go.kr/api/rest/arrive/getArrInfoByStopID?serviceKey=${API_KEY}&BusStopID=${busStationNo}`
+  //       .then((response) => response.text())
+  //       .then((response) => {
+  //         console.log(response);
+  //       })
+  //   );
+
+  // return fetch(
+  //   `http://openapitraffic.daejeon.go.kr/api/rest/arrive/getArrInfoByStopID?serviceKey=${API_KEY}&BusStopID=${busStationNo}`
+  // )
+  //   .then((response) => response.text())
+  //   .then((response) => {
+  //     parseString(response, function (err, result) {
+  //       const busArriveInfoArray = result.ServiceResult.msgBody;
+  //       return busArriveInfoArray;
+  //     });
+  //   });
+
+  return <View style={styles.container}></View>;
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -45,5 +66,3 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
 });
-
-export default ResultScreen;
