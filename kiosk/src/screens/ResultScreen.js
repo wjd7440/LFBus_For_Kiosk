@@ -9,6 +9,8 @@ import {
 import { NavigationService } from "../common";
 import axios from "axios";
 
+import { ScrollView } from "react-native-gesture-handler";
+
 export default ({ navigation }) => {
   const [data, setData] = useState([]);
   const [loaded, setLoaded] = useState(false);
@@ -23,40 +25,44 @@ export default ({ navigation }) => {
       url: `http://openapitraffic.daejeon.go.kr/api/rest/arrive/getArrInfoByStopID?serviceKey=${API_KEY}&BusStopID=${busStationNo}`,
       method: "get",
     }).then((response) => {
-      setData(response);
-      setLoaded(true);
+      parseString(response.data, function (err, result) {
+        // console.log(result);
+        const busArriveInfoArray = result.ServiceResult.msgBody;
+        setData(busArriveInfoArray);
+        setLoaded(true);
+      });
     });
   };
 
   useEffect(() => {
-    dataLoader();
+    let timer = setInterval(() => {
+      dataLoader();
+    }, 2000);
   }, []);
 
-  if (loaded) {
-    console.log(data);
-  }
-
-  // const data = () => {
-  //   return fetch(
-  //     `http://openapitraffic.daejeon.go.kr/api/rest/arrive/getArrInfoByStopID?serviceKey=${API_KEY}&BusStopID=${busStationNo}`
-  //       .then((response) => response.text())
-  //       .then((response) => {
-  //         console.log(response);
-  //       })
-  //   );
-
-  // return fetch(
-  //   `http://openapitraffic.daejeon.go.kr/api/rest/arrive/getArrInfoByStopID?serviceKey=${API_KEY}&BusStopID=${busStationNo}`
-  // )
-  //   .then((response) => response.text())
-  //   .then((response) => {
-  //     parseString(response, function (err, result) {
-  //       const busArriveInfoArray = result.ServiceResult.msgBody;
-  //       return busArriveInfoArray;
-  //     });
-  //   });
-
-  return <View style={styles.container}></View>;
+  return (
+    <View style={styles.container}>
+      {!loaded ? (
+        <Text>로딩중</Text>
+      ) : (
+        <ScrollView>
+          {data[0].itemList.map((rowData, index) => (
+            <>
+              <Text numberOfLines={1} size={18} color={"#222"}>
+                버스 번호 : {rowData.ROUTE_NO}번
+              </Text>
+              <Text numberOfLines={1} size={18} color={"#222"}>
+                잔여 정류장 수 : {rowData.STATUS_POS}개
+              </Text>
+              <Text numberOfLines={1} size={18} color={"#222"}>
+                도착 예정 시간 : {rowData.EXTIME_MIN}분
+              </Text>
+            </>
+          ))}
+        </ScrollView>
+      )}
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
