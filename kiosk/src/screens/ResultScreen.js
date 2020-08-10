@@ -37,7 +37,7 @@ export default ({ navigation }) => {
   useEffect(() => {
     // let timer = setInterval(() => {
     dataLoader();
-    // }, 2000);
+    // }, 15000);
   }, []);
 
   return (
