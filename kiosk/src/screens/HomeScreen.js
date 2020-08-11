@@ -54,14 +54,26 @@ export default ({ navigation }) => {
           nestedScrollEnabled: true,
         }}
       />
-      <TouchableOpacity
-        style={styles.submitButton}
-        onPress={() =>
-          navigation.navigate("저상버스도착현황", { busStationNo })
-        }
-      >
-        <Text style={styles.submitButtonText}>Submit</Text>
-      </TouchableOpacity>
+      {busStationNo ? (
+        <TouchableOpacity
+          style={styles.submitButton}
+          onPress={() =>
+            navigation.navigate("저상버스도착현황", { busStationNo })
+          }
+        >
+          <Text style={styles.submitButtonText}>검색</Text>
+        </TouchableOpacity>
+      ) : (
+        <TouchableOpacity
+          disabled={true}
+          style={styles.submitButton}
+          onPress={() =>
+            navigation.navigate("저상버스도착현황", { busStationNo })
+          }
+        >
+          <Text style={styles.submitButtonText}>검색</Text>
+        </TouchableOpacity>
+      )}
     </Fragment>
   );
 };

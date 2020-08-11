@@ -7,13 +7,18 @@ import {
   StatusBar,
 } from "react-native";
 import { NavigationService } from "../common";
+import { BUS_INFO_QUERY } from "../Queries";
 import axios from "axios";
 
 import { ScrollView } from "react-native-gesture-handler";
+import { useQuery } from "react-apollo-hooks";
+
+import ResultDetailScreen from "./ResultDetailScreen";
 
 export default ({ navigation }) => {
   const [data, setData] = useState([]);
   const [loaded, setLoaded] = useState(false);
+  const [busses, setBusses] = useState([]);
 
   const API_KEY =
     "8Ob9wZKBcsyHDD1I%2FlSyl%2B6gkCiD5d%2ByEGpViOo9efKiifmfRRN%2BeZg3WGMxDPVm11UXBGhpJolfP1Zj8BpqDw%3D%3D";
@@ -46,19 +51,20 @@ export default ({ navigation }) => {
         <Text>로딩중</Text>
       ) : (
         <ScrollView>
-          {data[0].itemList.map((rowData, index) => (
-            <>
-              <Text numberOfLines={1} size={18} color={"#222"}>
-                버스 번호 : {rowData.ROUTE_NO}번
-              </Text>
-              <Text numberOfLines={1} size={18} color={"#222"}>
-                잔여 정류장 수 : {rowData.STATUS_POS}개
-              </Text>
-              <Text numberOfLines={1} size={18} color={"#222"}>
-                도착 예정 시간 : {rowData.EXTIME_MIN}분
-              </Text>
-            </>
-          ))}
+          {data[0].itemList.map((rowData, index) => {
+            return (
+              <>
+                {rowData.CAR_REG_NO && (
+                  <ResultDetailScreen
+                    CAR_REG_NO={rowData.CAR_REG_NO}
+                    ROUTE_NO={rowData.ROUTE_NO}
+                    STATUS_POS={rowData.STATUS_POS}
+                    EXTIME_MIN={rowData.EXTIME_MIN}
+                  />
+                )}
+              </>
+            );
+          })}
         </ScrollView>
       )}
     </View>
