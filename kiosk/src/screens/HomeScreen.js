@@ -24,7 +24,7 @@ export default ({ navigation }) => {
         multi={true}
         containerStyle={{ padding: 5 }}
         onItemSelect={(item) => {
-          setBusStationNo(item.busStationNo);
+          setBusStationNo(item.BUS_NODE_ID);
         }}
         itemStyle={{
           padding: 10,

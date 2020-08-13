@@ -5,9 +5,8 @@ export const BUS_STATION_LIST_QUERY = gql`
   query KioskBusStationList {
     KioskBusStationList {
       busStations {
-        id
-        name
-        busStationNo
+        BUS_NODE_ID
+        BUSSTOP_NM
       }
       count
     }
