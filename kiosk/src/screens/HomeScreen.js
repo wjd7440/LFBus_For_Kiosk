@@ -79,7 +79,7 @@ export default ({ navigation }) => {
               navigation.navigate("저상버스도착현황", { busStationNo })
             }
           >
-            <Text style={styles.submitButtonText}>검색</Text>
+            <Text style={styles.submitButtonText}>검색하기</Text>
           </TouchableOpacity>
         ) : (
           <TouchableOpacity
@@ -89,7 +89,7 @@ export default ({ navigation }) => {
               navigation.navigate("저상버스도착현황", { busStationNo })
             }
           >
-            <Text style={styles.submitButtonText}>검색</Text>
+            <Text style={styles.submitButtonText}>검색하기</Text>
           </TouchableOpacity>
         )}
       </Fragment>
