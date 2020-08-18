@@ -43,12 +43,12 @@ export default ({ navigation }) => {
     // let timer = setInterval(() => {
     dataLoader();
     // }, 15000);
-  }, []);
+  }, [busStationNo]);
 
   return (
     <View style={styles.container}>
-      {!loaded ? (
-        <Text>로딩중</Text>
+      {!loaded || !data[0] ? (
+        <Text>저상버스 도착정보가 없습니다.</Text>
       ) : (
         <ScrollView>
           {data[0].itemList.map((rowData, index) => {

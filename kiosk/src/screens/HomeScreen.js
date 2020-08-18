@@ -13,69 +13,88 @@ import { NavigationService } from "../common";
 
 export default ({ navigation }) => {
   const [busStationNo, setBusStationNo] = useState(null);
+  const [items, setItemsArray] = useState([]);
   const { data, loading, refetch } = useQuery(BUS_STATION_LIST_QUERY, {
     fetchPolicy: "network-only",
   });
-  const items = !loading && data.KioskBusStationList.busStations;
+  const originItems = !loading && data.KioskBusStationList.busStations;
 
-  return (
-    <Fragment>
-      <SearchableDropdown
-        multi={true}
-        containerStyle={{ padding: 5 }}
-        onItemSelect={(item) => {
-          setBusStationNo(item.BUS_NODE_ID);
-        }}
-        itemStyle={{
-          padding: 10,
-          marginTop: 2,
-          backgroundColor: "#ddd",
-          borderColor: "#bbb",
-          borderWidth: 1,
-          borderRadius: 5,
-        }}
-        itemTextStyle={{ color: "#222" }}
-        itemsContainerStyle={{ maxHeight: 140 }}
-        items={items}
-        defaultIndex={0}
-        chip={true}
-        resetValue={false}
-        textInputProps={{
-          placeholder: "버스정류장을 검색해주세요.",
-          underlineColorAndroid: "transparent",
-          style: {
-            padding: 12,
+  useEffect(() => {
+    if (!loading) {
+      let tempItems = [];
+
+      originItems.map((rowData, index) => {
+        tempItems.push({
+          id: rowData.BUS_NODE_ID,
+          name: rowData.BUSSTOP_NM,
+        });
+      });
+      setItemsArray(tempItems);
+    }
+  }, [loading]);
+
+  if (loading) {
+    return <Text>Loading......</Text>;
+  } else {
+    return (
+      <Fragment>
+        <SearchableDropdown
+          multi={true}
+          containerStyle={{ padding: 5 }}
+          onItemSelect={(item) => {
+            setBusStationNo(item.id);
+          }}
+          itemStyle={{
+            padding: 10,
+            marginTop: 2,
+            backgroundColor: "#ddd",
+            borderColor: "#bbb",
             borderWidth: 1,
-            borderColor: "#ccc",
             borderRadius: 5,
-          },
-        }}
-        listProps={{
-          nestedScrollEnabled: true,
-        }}
-      />
-      {busStationNo ? (
-        <TouchableOpacity
-          style={styles.submitButton}
-          onPress={() =>
-            navigation.navigate("저상버스도착현황", { busStationNo })
-          }
-        >
-          <Text style={styles.submitButtonText}>검색</Text>
-        </TouchableOpacity>
-      ) : (
-        <TouchableOpacity
-          disabled={true}
-          style={styles.submitButton}
-          onPress={() =>
-            navigation.navigate("저상버스도착현황", { busStationNo })
-          }
-        >
-          <Text style={styles.submitButtonText}>검색</Text>
-        </TouchableOpacity>
-      )}
-    </Fragment>
-  );
+          }}
+          itemTextStyle={{ color: "#222" }}
+          itemsContainerStyle={{ maxHeight: 140 }}
+          items={items}
+          defaultIndex={0}
+          chip={true}
+          resetValue={false}
+          textInputProps={{
+            placeholder: "버스정류장을 검색해주세요.",
+            underlineColorAndroid: "transparent",
+            style: {
+              padding: 12,
+              borderWidth: 1,
+              borderColor: "#ccc",
+              borderRadius: 5,
+            },
+          }}
+          listProps={{
+            nestedScrollEnabled: true,
+          }}
+        />
+        {busStationNo ? (
+          <TouchableOpacity
+            style={styles.submitButton}
+            onPress={() =>
+              navigation.navigate("저상버스도착현황", { busStationNo })
+            }
+          >
+            <Text style={styles.submitButtonText}>검색</Text>
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity
+            disabled={true}
+            style={styles.submitButton}
+            onPress={() =>
+              navigation.navigate("저상버스도착현황", { busStationNo })
+            }
+          >
+            <Text style={styles.submitButtonText}>검색</Text>
+          </TouchableOpacity>
+        )}
+      </Fragment>
+    );
+  }
 };
 
 const styles = StyleSheet.create({

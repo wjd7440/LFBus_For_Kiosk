@@ -31,17 +31,15 @@ export default ({ CAR_REG_NO, ROUTE_NO, STATUS_POS, EXTIME_MIN }) => {
     if (BUS_TYPE == 2) {
       return (
         <>
-          <div style={styles.bitWrap}>
-            <Text numberOfLines={1} size={18} color={"#222"}>
-              버스 번호 : {ROUTE_NO}번
-            </Text>
-            <Text numberOfLines={1} size={18} color={"#222"}>
-              잔여 정류장 수 : {STATUS_POS}개
-            </Text>
-            <Text numberOfLines={1} size={18} color={"#222"}>
-              도착 예정 시간 : {EXTIME_MIN}분
-            </Text>
-          </div>
+          <Text numberOfLines={1} size={18} color={"#222"}>
+            버스 번호 : {ROUTE_NO}번
+          </Text>
+          <Text numberOfLines={1} size={18} color={"#222"}>
+            잔여 정류장 수 : {STATUS_POS}개
+          </Text>
+          <Text numberOfLines={1} size={18} color={"#222"}>
+            도착 예정 시간 : {EXTIME_MIN}분
+          </Text>
         </>
       );
     } else {
