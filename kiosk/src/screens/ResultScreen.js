@@ -12,6 +12,7 @@ import axios from "axios";
 
 import { ScrollView } from "react-native-gesture-handler";
 import { useQuery } from "react-apollo-hooks";
+import { LinearGradient } from "expo-linear-gradient";
 
 import ResultDetailScreen from "./ResultDetailScreen";
 
@@ -51,6 +52,32 @@ export default ({ navigation }) => {
         <Text>저상버스 도착정보가 없습니다.</Text>
       ) : (
         <ScrollView>
+          <LinearGradient colors={["#00427E", "#002548"]}>
+            <View style={styles.bitHeaderWrap}>
+              <View
+                style={{ ...styles.bitHeader, justifyContent: "flex-start" }}
+              >
+                <Text style={styles.bitHeaderFont}>시청역</Text>
+              </View>
+              <View style={{ ...styles.bitHeader, justifyContent: "center" }}>
+                <Text style={styles.bitHeaderFont}>저상버스안내시스템</Text>
+              </View>
+              <View style={{ ...styles.bitHeader, justifyContent: "flex-end" }}>
+                <Text style={styles.bitHeaderFont}>2020-01-01(수)</Text>
+              </View>
+            </View>
+            <View style={styles.bitHeaderWrap}>
+              <View style={{ ...styles.bitHeader, justifyContent: "center" }}>
+                <Text style={styles.bitHeaderFont}>시청역</Text>
+              </View>
+              <View style={{ ...styles.bitHeader, justifyContent: "center" }}>
+                <Text style={styles.bitHeaderFont}>저상버스안내시스템</Text>
+              </View>
+              <View style={{ ...styles.bitHeader, justifyContent: "center" }}>
+                <Text style={styles.bitHeaderFont}>2020-01-01(수)</Text>
+              </View>
+            </View>
+          </LinearGradient>
           {data[0].itemList.map((rowData, index) => {
             return (
               <>
@@ -75,6 +102,32 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "white",
-    justifyContent: "center",
+  },
+  bitHeaderWrap: {
+    flex: 1,
+    flexDirection: "row",
+  },
+  bitHeader: {
+    position: "relative",
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "center",
+    paddingTop: 15,
+    paddingBottom: 15,
+    paddingLeft: 20,
+    paddingRight: 20,
+  },
+  bitHeaderFont: {
+    color: "white",
+    fontSize: 24,
+    textShadowColor: "#000",
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 4,
+    fontWeight: "bold",
+  },
+  bitHeaderCenter: {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
   },
 });

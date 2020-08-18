@@ -8,11 +8,7 @@ import {
 } from "react-native";
 import { useQuery } from "react-apollo-hooks";
 import { BUS_INFO_QUERY } from "../Queries";
-import Table from "@material-ui/core/Table";
-import TableHead from "@material-ui/core/TableHead";
-import TableBody from "@material-ui/core/TableBody";
-import TableRow from "@material-ui/core/TableRow";
-import TableCell from "@material-ui/core/TableCell";
+import { LinearGradient } from "expo-linear-gradient";
 
 export default ({ CAR_REG_NO, ROUTE_NO, STATUS_POS, EXTIME_MIN }) => {
   const { data, loading } = useQuery(BUS_INFO_QUERY, {
@@ -30,7 +26,7 @@ export default ({ CAR_REG_NO, ROUTE_NO, STATUS_POS, EXTIME_MIN }) => {
 
     if (BUS_TYPE == 2) {
       return (
-        <>
+        <View style={styles.container}>
           <Text numberOfLines={1} size={18} color={"#222"}>
             버스 번호 : {ROUTE_NO}번
           </Text>
@@ -40,10 +36,17 @@ export default ({ CAR_REG_NO, ROUTE_NO, STATUS_POS, EXTIME_MIN }) => {
           <Text numberOfLines={1} size={18} color={"#222"}>
             도착 예정 시간 : {EXTIME_MIN}분
           </Text>
-        </>
+        </View>
       );
     } else {
       return null;
     }
   }
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "white",
+  },
+});

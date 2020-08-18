@@ -40,7 +40,7 @@ export default ({ navigation }) => {
       <Fragment>
         <SearchableDropdown
           multi={true}
-          containerStyle={{ padding: 5 }}
+          containerStyle={{ padding: 15 }}
           onItemSelect={(item) => {
             setBusStationNo(item.id);
           }}
@@ -52,8 +52,8 @@ export default ({ navigation }) => {
             borderWidth: 1,
             borderRadius: 5,
           }}
-          itemTextStyle={{ color: "#222" }}
-          itemsContainerStyle={{ maxHeight: 140 }}
+          itemTextStyle={{ color: "#222", fontSize: 16 }}
+          itemsContainerStyle={{ maxHeight: 216 }}
           items={items}
           defaultIndex={0}
           chip={true}
@@ -66,6 +66,7 @@ export default ({ navigation }) => {
               borderWidth: 1,
               borderColor: "#ccc",
               borderRadius: 5,
+              backgroundColor: "#fff",
             },
           }}
           listProps={{
@@ -111,9 +112,15 @@ const styles = StyleSheet.create({
     backgroundColor: "#7a42f4",
     padding: 10,
     margin: 15,
-    height: 40,
+    marginTop: 5,
+    height: 50,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 4,
   },
   submitButtonText: {
     color: "white",
+    fontSize: 18,
+    fontWeight: "bold",
   },
 });
