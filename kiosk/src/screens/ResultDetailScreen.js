@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -11,7 +11,14 @@ import { useQuery } from "react-apollo-hooks";
 import { BUS_INFO_QUERY } from "../Queries";
 import { LinearGradient } from "expo-linear-gradient";
 
-export default ({ CAR_REG_NO, ROUTE_NO, STATUS_POS, EXTIME_MIN }) => {
+export default ({
+  CAR_REG_NO,
+  ROUTE_NO,
+  STATUS_POS,
+  EXTIME_MIN,
+  DESTINATION,
+  ROUTE_TP,
+}) => {
   const { data, loading } = useQuery(BUS_INFO_QUERY, {
     variables: {
       CAR_REG_NO: CAR_REG_NO[0],
@@ -30,17 +37,32 @@ export default ({ CAR_REG_NO, ROUTE_NO, STATUS_POS, EXTIME_MIN }) => {
         <View style={{ ...styles.container }}>
           <View style={styles.row}>
             <View style={[styles.cell, styles.cell1]}>
-              <Image
-                style={styles.busIcon}
-                source={require("../../assets/bus_blue.png")}
-              />
+              {ROUTE_TP == 1 && (
+                <Image
+                  style={styles.busIcon}
+                  source={require("../../assets/bus_red.png")}
+                />
+              )}
+              {ROUTE_TP == 2 && (
+                <Image
+                  style={styles.busIcon}
+                  source={require("../../assets/bus_blue.png")}
+                />
+              )}
+              {ROUTE_TP == 3 && (
+                <Image
+                  style={styles.busIcon}
+                  source={require("../../assets/bus_green.png")}
+                />
+              )}
+
               <Text style={styles.cellFont} numberOfLines={1}>
                 {ROUTE_NO}
               </Text>
             </View>
             <View style={[styles.cell, styles.cell2]}>
               <Text style={styles.cellFont} numberOfLines={1}>
-                대전역
+                {DESTINATION}
               </Text>
             </View>
             <View style={[styles.cell, styles.cell3]}>
@@ -56,11 +78,19 @@ export default ({ CAR_REG_NO, ROUTE_NO, STATUS_POS, EXTIME_MIN }) => {
                 </Text>
               </LinearGradient>
             </View>
-            <View style={[styles.cell, styles.cell4]}>
-              <Text style={styles.cellFont} numberOfLines={1}>
-                {STATUS_POS}개
-              </Text>
-            </View>
+            {STATUS_POS > 0 ? (
+              <View style={[styles.cell, styles.cell4]}>
+                <Text style={styles.cellFont} numberOfLines={1}>
+                  {STATUS_POS}정류장 전
+                </Text>
+              </View>
+            ) : (
+              <View style={[styles.cell, styles.cell4]}>
+                <Text style={styles.cellFont} numberOfLines={1}>
+                  진입중
+                </Text>
+              </View>
+            )}
           </View>
         </View>
       );

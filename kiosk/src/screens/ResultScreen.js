@@ -26,6 +26,8 @@ export default ({ navigation }) => {
     "8Ob9wZKBcsyHDD1I%2FlSyl%2B6gkCiD5d%2ByEGpViOo9efKiifmfRRN%2BeZg3WGMxDPVm11UXBGhpJolfP1Zj8BpqDw%3D%3D";
   const parseString = require("react-native-xml2js").parseString;
   const busStationNo = navigation.getParam("busStationNo");
+  const busStationName = navigation.getParam("busStationName");
+  const [time, setTime] = useState({});
 
   const dataLoader = () => {
     axios({
@@ -47,6 +49,19 @@ export default ({ navigation }) => {
     // }, 15000);
   }, [busStationNo]);
 
+  useEffect(() => {
+    // let timer = setInterval(() => {
+
+    const date = new Date().getDate();
+    const month = new Date().getMonth() + 1;
+    const year = new Date().getFullYear();
+    const hours = new Date().getHours();
+    const min = new Date().getMinutes();
+    setTime(year + "/" + month + "/" + date + " " + hours + ":" + min);
+
+    // }, 15000);
+  }, []);
+
   return (
     <View style={styles.container}>
       {!loaded || !data[0] ? (
@@ -60,7 +75,7 @@ export default ({ navigation }) => {
               <View
                 style={{ ...styles.bitHeader, justifyContent: "flex-start" }}
               >
-                <Text style={styles.bitHeaderFont}>시청역</Text>
+                <Text style={styles.bitHeaderFont}>{busStationName}</Text>
               </View>
               <View style={{ ...styles.bitHeader, justifyContent: "center" }}>
                 <Text style={styles.bitHeaderFont}>
@@ -73,7 +88,7 @@ export default ({ navigation }) => {
               </View>
               <View style={{ ...styles.bitHeader, justifyContent: "flex-end" }}>
                 <Text style={{ ...styles.bitHeaderFont, fontSize: 21 }}>
-                  2020-01-01(수) 오전 12:08
+                  {time}
                 </Text>
               </View>
             </View>
@@ -109,6 +124,8 @@ export default ({ navigation }) => {
                     ROUTE_NO={rowData.ROUTE_NO}
                     STATUS_POS={rowData.STATUS_POS}
                     EXTIME_MIN={rowData.EXTIME_MIN}
+                    DESTINATION={rowData.DESTINATION}
+                    ROUTE_TP={rowData.ROUTE_TP}
                   />
                 )}
               </>

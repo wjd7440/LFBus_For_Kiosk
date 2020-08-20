@@ -13,6 +13,7 @@ import { NavigationService } from "../common";
 
 export default ({ navigation }) => {
   const [busStationNo, setBusStationNo] = useState(null);
+  const [busStationName, setBusStationName] = useState(null);
   const [items, setItemsArray] = useState([]);
   const { data, loading, refetch } = useQuery(BUS_STATION_LIST_QUERY, {
     fetchPolicy: "network-only",
@@ -43,6 +44,7 @@ export default ({ navigation }) => {
           containerStyle={{ padding: 15 }}
           onItemSelect={(item) => {
             setBusStationNo(item.id);
+            setBusStationName(item.name);
           }}
           itemStyle={{
             padding: 10,
@@ -77,7 +79,10 @@ export default ({ navigation }) => {
           <TouchableOpacity
             style={styles.submitButton}
             onPress={() =>
-              navigation.navigate("저상버스도착현황", { busStationNo })
+              navigation.navigate("저상버스도착현황", {
+                busStationNo,
+                busStationName,
+              })
             }
           >
             <Text style={styles.submitButtonText}>검색</Text>
@@ -87,7 +92,10 @@ export default ({ navigation }) => {
             disabled={true}
             style={styles.submitButton}
             onPress={() =>
-              navigation.navigate("저상버스도착현황", { busStationNo })
+              navigation.navigate("저상버스도착현황", {
+                busStationNo,
+                busStationName,
+              })
             }
           >
             <Text style={styles.submitButtonText}>검색</Text>
