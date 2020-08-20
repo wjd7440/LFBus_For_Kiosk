@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   StatusBar,
+  Image,
 } from "react-native";
 import { NavigationService } from "../common";
 import { BUS_INFO_QUERY } from "../Queries";
@@ -49,7 +50,9 @@ export default ({ navigation }) => {
   return (
     <View style={styles.container}>
       {!loaded || !data[0] ? (
-        <Text>저상버스 도착정보가 없습니다.</Text>
+        <View style={{ ...styles.noneBus, flex: 1 }}>
+          <Text style={styles.noneBus}>저상버스 도착정보가 없습니다.</Text>
+        </View>
       ) : (
         <ScrollView>
           <LinearGradient colors={["#00427E", "#002548"]}>
@@ -60,21 +63,40 @@ export default ({ navigation }) => {
                 <Text style={styles.bitHeaderFont}>시청역</Text>
               </View>
               <View style={{ ...styles.bitHeader, justifyContent: "center" }}>
-                <Text style={styles.bitHeaderFont}>저상버스안내시스템</Text>
+                <Text style={styles.bitHeaderFont}>
+                  <Image
+                    style={styles.wheelChair}
+                    source={require("../../assets/wheelchair_white.png")}
+                  />
+                  저상버스안내시스템
+                </Text>
               </View>
               <View style={{ ...styles.bitHeader, justifyContent: "flex-end" }}>
-                <Text style={styles.bitHeaderFont}>2020-01-01(수)</Text>
+                <Text style={{ ...styles.bitHeaderFont, fontSize: 21 }}>
+                  2020-01-01(수) 오전 12:08
+                </Text>
               </View>
             </View>
-            <View style={styles.bitHeaderWrap}>
-              <View style={{ ...styles.bitHeader, justifyContent: "center" }}>
-                <Text style={styles.bitHeaderFont}>시청역</Text>
+            <View style={{ ...styles.bitHeaderWrap, width: "100%" }}>
+              <View style={[styles.busTitleBox, styles.tableCell1]}>
+                <Text style={styles.busTitle}>노선번호</Text>
+                <Text style={{ ...styles.busTitle, fontSize: 20 }}>Route</Text>
               </View>
-              <View style={{ ...styles.bitHeader, justifyContent: "center" }}>
-                <Text style={styles.bitHeaderFont}>저상버스안내시스템</Text>
+              <View style={[styles.busTitleBox, styles.tableCell2]}>
+                <Text style={styles.busTitle}>종착지</Text>
+                <Text style={{ ...styles.busTitle, fontSize: 20 }}>
+                  Destination
+                </Text>
               </View>
-              <View style={{ ...styles.bitHeader, justifyContent: "center" }}>
-                <Text style={styles.bitHeaderFont}>2020-01-01(수)</Text>
+              <View style={[styles.busTitleBox, styles.tableCell3]}>
+                <Text style={styles.busTitle}>예정시간</Text>
+                <Text style={{ ...styles.busTitle, fontSize: 20 }}>Minute</Text>
+              </View>
+              <View style={[styles.busTitleBox, styles.tableCell4]}>
+                <Text style={styles.busTitle}>버스위치</Text>
+                <Text style={{ ...styles.busTitle, fontSize: 20 }}>
+                  Location
+                </Text>
               </View>
             </View>
           </LinearGradient>
@@ -97,6 +119,11 @@ export default ({ navigation }) => {
     </View>
   );
 };
+
+const cell1 = "20%";
+const cell2 = "25%";
+const cell3 = "20%";
+const cell4 = "35%";
 
 const styles = StyleSheet.create({
   container: {
@@ -129,5 +156,44 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: "50%",
     left: "50%",
+  },
+  busTitleBox: {
+    padding: 10,
+    borderTopWidth: 2,
+    borderLeftWidth: 2,
+    borderColor: "#ddd",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  busTitle: {
+    fontSize: 56,
+    fontWeight: "bold",
+    color: "white",
+    textShadowColor: "#000",
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 4,
+  },
+  tableCell1: {
+    width: cell1,
+    borderLeftWidth: 0,
+  },
+  tableCell2: {
+    width: cell2,
+  },
+  tableCell3: {
+    width: cell3,
+  },
+  tableCell4: {
+    width: cell4,
+  },
+  wheelChair: {
+    width: 27,
+    height: 27,
+    marginRight: 3,
+  },
+  noneBus: {
+    justifyContent: "center",
+    alignItems: "center",
+    fontSize: 28,
   },
 });
