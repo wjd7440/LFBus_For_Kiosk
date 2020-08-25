@@ -20,6 +20,7 @@ export default ({
   ROUTE_TP,
 }) => {
   const { data, loading } = useQuery(BUS_INFO_QUERY, {
+    fetchPolicy: "network-only",
     variables: {
       CAR_REG_NO: CAR_REG_NO[0],
     },
@@ -28,11 +29,7 @@ export default ({
   if (loading) {
     return null;
   } else {
-    const {
-      KioskBusInfo: { BUS_TYPE },
-    } = data;
-
-    if (BUS_TYPE == 2) {
+    if (data.KioskBusInfo) {
       return (
         <View style={{ ...styles.container }}>
           <View style={styles.row}>
