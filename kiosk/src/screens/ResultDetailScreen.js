@@ -83,7 +83,7 @@ export default ({
               </View>
             ) : (
               <View style={[styles.cell, styles.cell4]}>
-                <Text style={styles.cellFont} numberOfLines={1}>
+                <Text style={styles.redFont} numberOfLines={1}>
                   진입중
                 </Text>
               </View>
@@ -151,5 +151,10 @@ const styles = StyleSheet.create({
   busIcon: {
     width: 52,
     height: 52,
+  },
+  redFont: {
+    fontSize: 54,
+    fontWeight: "bold",
+    color: "red",
   },
 });
