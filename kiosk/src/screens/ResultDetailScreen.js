@@ -18,6 +18,7 @@ export default ({
   EXTIME_MIN,
   DESTINATION,
   ROUTE_TP,
+  STOP_NAME,
 }) => {
   const { data, loading } = useQuery(BUS_INFO_QUERY, {
     fetchPolicy: "network-only",
@@ -58,7 +59,14 @@ export default ({
               </Text>
             </View>
             <View style={[styles.cell, styles.cell2]}>
-              <Text style={styles.cellFont} numberOfLines={1}>
+              <Text
+                style={{
+                  ...styles.cellFont,
+                  lineHeight: 54 * 0.95,
+                  paddingTop: 20,
+                }}
+                numberOfLines={2}
+              >
                 {DESTINATION}
               </Text>
             </View>
@@ -78,7 +86,7 @@ export default ({
             {STATUS_POS > 0 ? (
               <View style={[styles.cell, styles.cell4]}>
                 <Text style={styles.cellFont} numberOfLines={1}>
-                  {STATUS_POS}정류장 전
+                  {STATUS_POS}정류장 전 {STOP_NAME}
                 </Text>
               </View>
             ) : (

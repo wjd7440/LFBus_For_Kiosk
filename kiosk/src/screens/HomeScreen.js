@@ -35,7 +35,7 @@ export default ({ navigation }) => {
   }, [loading]);
 
   if (loading) {
-    return <Text>Loading......</Text>;
+    return <Text style={styles.loadingTxt}>Loading......</Text>;
   } else {
     return (
       <Fragment>
@@ -130,5 +130,11 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 18,
     fontWeight: "bold",
+  },
+  loadingTxt: {
+    fontSize: 32,
+    alignItems: "center",
+    justifyContent: "center",
+    flex: 1,
   },
 });
