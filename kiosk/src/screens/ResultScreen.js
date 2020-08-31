@@ -44,22 +44,26 @@ export default ({ navigation }) => {
   };
 
   useEffect(() => {
-    // let timer = setInterval(() => {
-    dataLoader();
-    // }, 15000);
+    let timer = setInterval(() => {
+      dataLoader();
+    }, 15000);
   }, [busStationNo]);
 
   useEffect(() => {
-    // let timer = setInterval(() => {
-
-    const date = new Date().getDate();
-    const month = new Date().getMonth() + 1;
-    const year = new Date().getFullYear();
-    const hours = new Date().getHours();
-    const min = new Date().getMinutes();
-    setTime(year + "/" + month + "/" + date + " " + hours + ":" + min);
-
-    // }, 15000);
+    let timer = setInterval(() => {
+      const date = new Date().getDate();
+      const month = new Date().getMonth() + 1;
+      const year = new Date().getFullYear();
+      const hours = new Date().getHours();
+      const min = new Date().getMinutes();
+      if (min > 10) {
+        setTime(year + "/" + month + "/" + date + " " + hours + ":" + min);
+      } else {
+        setTime(
+          year + "/" + month + "/" + date + " " + hours + ":" + "0" + min
+        );
+      }
+    }, 15000);
   }, []);
 
   return (
