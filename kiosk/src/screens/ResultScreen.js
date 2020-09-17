@@ -124,8 +124,8 @@ export default ({ navigation }) => {
               <>
                 {rowData.CAR_REG_NO && (
                   <ResultDetailScreen
-                  busExist={busExist}
-                  setBusExist={setBusExist}
+                    busExist={busExist}
+                    setBusExist={setBusExist}
                     CAR_REG_NO={rowData.CAR_REG_NO}
                     ROUTE_NO={rowData.ROUTE_NO}
                     STATUS_POS={rowData.STATUS_POS}
