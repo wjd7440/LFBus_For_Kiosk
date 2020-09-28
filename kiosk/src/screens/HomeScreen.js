@@ -10,7 +10,6 @@ import {
   StatusBar,
 } from "react-native";
 import { NavigationService } from "../common";
-
 export default ({ navigation }) => {
   const [busStationNo, setBusStationNo] = useState(null);
   const [busStationName, setBusStationName] = useState(null);

@@ -10,7 +10,6 @@ import {
 import { NavigationService } from "../common";
 import { BUS_INFO_QUERY } from "../Queries";
 import axios from "axios";
-
 import { ScrollView } from "react-native-gesture-handler";
 import { useQuery } from "react-apollo-hooks";
 import { LinearGradient } from "expo-linear-gradient";
@@ -21,6 +20,7 @@ export default ({ navigation }) => {
   const [data, setData] = useState([]);
   const [loaded, setLoaded] = useState(false);
   const [busses, setBusses] = useState([]);
+  const [busExist, setBusExist] = useState(false);
 
   const API_KEY =
     "8Ob9wZKBcsyHDD1I%2FlSyl%2B6gkCiD5d%2ByEGpViOo9efKiifmfRRN%2BeZg3WGMxDPVm11UXBGhpJolfP1Zj8BpqDw%3D%3D";
@@ -70,7 +70,7 @@ export default ({ navigation }) => {
     <View style={styles.container}>
       {!loaded || !data[0] ? (
         <View style={{ ...styles.noneBus, flex: 1 }}>
-          <Text style={styles.noneBus}>저상버스 도착정보가 없습니다.</Text>
+          <Text style={styles.noneBus}>실시간 저상버스 정보를 로딩중입니다.</Text>
         </View>
       ) : (
         <ScrollView>
@@ -124,6 +124,8 @@ export default ({ navigation }) => {
               <>
                 {rowData.CAR_REG_NO && (
                   <ResultDetailScreen
+                    busExist={busExist}
+                    setBusExist={setBusExist}
                     CAR_REG_NO={rowData.CAR_REG_NO}
                     ROUTE_NO={rowData.ROUTE_NO}
                     STATUS_POS={rowData.STATUS_POS}
@@ -135,6 +137,7 @@ export default ({ navigation }) => {
               </>
             );
           })}
+          {!busExist && (<Text>현재 저상버스 도착정보가 없습니다.</Text>)}
         </ScrollView>
       )}
     </View>
