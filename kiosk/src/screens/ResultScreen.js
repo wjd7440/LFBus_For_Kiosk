@@ -6,6 +6,7 @@ import {
   StyleSheet,
   StatusBar,
   Image,
+  ActivityIndicator,
 } from "react-native";
 import { NavigationService } from "../common";
 import { BUS_INFO_QUERY } from "../Queries";
@@ -13,6 +14,10 @@ import axios from "axios";
 import { ScrollView } from "react-native-gesture-handler";
 import { useQuery } from "react-apollo-hooks";
 import { LinearGradient } from "expo-linear-gradient";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 
 import ResultDetailScreen from "./ResultDetailScreen";
 
@@ -69,8 +74,11 @@ export default ({ navigation }) => {
   return (
     <View style={styles.container}>
       {!loaded || !data[0] ? (
-        <View style={{ ...styles.noneBus, flex: 1 }}>
-          <Text style={styles.noneBus}>실시간 저상버스 정보를 로딩중입니다.</Text>
+        <View style={{ ...styles.noneBusBox, flex: 1 }}>
+          <ActivityIndicator size="large" color="#4B56F1" />
+          <Text style={styles.noneBus}>
+            실시간 저상버스 정보를 로딩중입니다.
+          </Text>
         </View>
       ) : (
         <ScrollView>
@@ -91,7 +99,7 @@ export default ({ navigation }) => {
                 </Text>
               </View>
               <View style={{ ...styles.bitHeader, justifyContent: "flex-end" }}>
-                <Text style={{ ...styles.bitHeaderFont, fontSize: 21 }}>
+                <Text style={{ ...styles.bitHeaderFont, fontSize: wp("1.8%") }}>
                   {time}
                 </Text>
               </View>
@@ -99,23 +107,15 @@ export default ({ navigation }) => {
             <View style={{ ...styles.bitHeaderWrap, width: "100%" }}>
               <View style={[styles.busTitleBox, styles.tableCell1]}>
                 <Text style={styles.busTitle}>노선번호</Text>
-                <Text style={{ ...styles.busTitle, fontSize: 20 }}>Route</Text>
               </View>
               <View style={[styles.busTitleBox, styles.tableCell2]}>
                 <Text style={styles.busTitle}>종착지</Text>
-                <Text style={{ ...styles.busTitle, fontSize: 20 }}>
-                  Destination
-                </Text>
               </View>
               <View style={[styles.busTitleBox, styles.tableCell3]}>
                 <Text style={styles.busTitle}>예정시간</Text>
-                <Text style={{ ...styles.busTitle, fontSize: 20 }}>Minute</Text>
               </View>
               <View style={[styles.busTitleBox, styles.tableCell4]}>
                 <Text style={styles.busTitle}>버스위치</Text>
-                <Text style={{ ...styles.busTitle, fontSize: 20 }}>
-                  Location
-                </Text>
               </View>
             </View>
           </LinearGradient>
@@ -137,7 +137,7 @@ export default ({ navigation }) => {
               </>
             );
           })}
-          {!busExist && (<Text>현재 저상버스 도착정보가 없습니다.</Text>)}
+          {!busExist && <Text>현재 저상버스 도착정보가 없습니다.</Text>}
         </ScrollView>
       )}
     </View>
@@ -157,6 +157,7 @@ const styles = StyleSheet.create({
   bitHeaderWrap: {
     flex: 1,
     flexDirection: "row",
+    alignItems: "center",
   },
   bitHeader: {
     position: "relative",
@@ -190,7 +191,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   busTitle: {
-    fontSize: 56,
+    fontSize: wp("4.9%"),
     fontWeight: "bold",
     color: "white",
     textShadowColor: "#000",
@@ -211,9 +212,13 @@ const styles = StyleSheet.create({
     width: cell4,
   },
   wheelChair: {
-    width: 27,
-    height: 27,
+    width: wp("2.4%"),
+    height: wp("2.4%"),
     marginRight: 3,
+  },
+  noneBusBox: {
+    justifyContent: "center",
+    alignItems: "center",
   },
   noneBus: {
     justifyContent: "center",

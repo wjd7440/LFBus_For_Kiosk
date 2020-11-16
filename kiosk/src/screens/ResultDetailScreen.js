@@ -10,6 +10,10 @@ import {
 import { useQuery } from "react-apollo-hooks";
 import { BUS_INFO_QUERY } from "../Queries";
 import { LinearGradient } from "expo-linear-gradient";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 
 export default ({
   busExist,
@@ -32,14 +36,13 @@ export default ({
   if (loading) {
     return null;
   } else {
-
-    if(!busExist && data.KioskBusInfo){
+    if (!busExist && data.KioskBusInfo) {
       setBusExist(true);
     }
 
-    console.log(data)
+    console.log(data);
 
-    if (data.KioskBusInfo) {      
+    if (data.KioskBusInfo) {
       return (
         <View style={{ ...styles.container }}>
           <View style={styles.row}>
@@ -95,7 +98,7 @@ export default ({
             {STATUS_POS > 0 ? (
               <View style={[styles.cell, styles.cell4]}>
                 <Text style={styles.cellFont} numberOfLines={1}>
-                  {STATUS_POS}정류장 전 {STOP_NAME}
+                  {STATUS_POS} 정류장 전 {STOP_NAME}
                 </Text>
               </View>
             ) : (
@@ -154,7 +157,7 @@ const styles = StyleSheet.create({
     alignItems: "baseline",
   },
   cellFont: {
-    fontSize: 54,
+    fontSize: wp("5%"),
     fontWeight: "bold",
     color: "#111",
   },
@@ -166,8 +169,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   busIcon: {
-    width: 52,
-    height: 52,
+    width: wp("5%"),
+    height: wp("5%"),
   },
   redFont: {
     fontSize: 54,
