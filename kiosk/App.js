@@ -3,7 +3,7 @@ import RootRouter from "./src/Router";
 import { AppLoading } from "expo";
 import * as Font from "expo-font";
 import { Asset } from "expo-asset";
-import { AsyncStorage } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import ApolloClient from "apollo-client";
 import { setContext } from "apollo-link-context";
 import { InMemoryCache } from "apollo-cache-inmemory";
