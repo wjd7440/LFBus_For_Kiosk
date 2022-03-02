@@ -1,12 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  StatusBar,
-  Image,
-} from "react-native";
+import { View, Text, Dimensions, StyleSheet, Image } from "react-native";
 import { useQuery } from "react-apollo-hooks";
 import { BUS_INFO_QUERY } from "../Queries";
 import { LinearGradient } from "expo-linear-gradient";
@@ -33,6 +26,9 @@ export default ({
     },
   });
 
+  const windowHeight = Dimensions.get("window").height;
+  const windowWidth = Dimensions.get("window").width;
+
   if (loading) {
     return null;
   } else {
@@ -49,19 +45,19 @@ export default ({
             <View style={[styles.cell, styles.cell1]}>
               {ROUTE_TP == 1 && (
                 <Image
-                  style={styles.busIcon}
+                  style={{ ...styles.busIcon, resizeMode: "contain" }}
                   source={require("../../assets/bus_red.png")}
                 />
               )}
               {ROUTE_TP == 2 && (
                 <Image
-                  style={styles.busIcon}
+                  style={{ ...styles.busIcon, resizeMode: "contain" }}
                   source={require("../../assets/bus_blue.png")}
                 />
               )}
               {ROUTE_TP == 3 && (
                 <Image
-                  style={styles.busIcon}
+                  style={{ ...styles.busIcon, resizeMode: "contain" }}
                   source={require("../../assets/bus_green.png")}
                 />
               )}
@@ -74,8 +70,6 @@ export default ({
               <Text
                 style={{
                   ...styles.cellFont,
-                  lineHeight: 54 * 0.95,
-                  paddingTop: 20,
                 }}
                 numberOfLines={2}
               >
@@ -122,6 +116,19 @@ const cell2 = "25%";
 const cell3 = "20%";
 const cell4 = "35%";
 
+const basicDimensions = {
+  height: 1115,
+  width: 1965.4,
+};
+const windowWidth = (
+  Dimensions.get("screen").width *
+  (1 / basicDimensions.width)
+).toFixed(2);
+const windowHeight = (
+  Dimensions.get("screen").height *
+  (1 / basicDimensions.height)
+).toFixed(2);
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -157,7 +164,7 @@ const styles = StyleSheet.create({
     alignItems: "baseline",
   },
   cellFont: {
-    fontSize: wp("5%"),
+    fontSize: windowWidth > 768 ? 30 : 48,
     fontWeight: "bold",
     color: "#111",
   },
@@ -169,11 +176,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   busIcon: {
-    width: wp("5%"),
-    height: wp("5%"),
+    width: windowWidth > 768 ? 30 : 48,
+    height: windowWidth > 768 ? 30 : 48,
   },
   redFont: {
-    fontSize: 54,
+    fontSize: windowWidth > 768 ? 30 : 48,
     fontWeight: "bold",
     color: "red",
   },

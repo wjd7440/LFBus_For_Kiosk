@@ -51,7 +51,7 @@ export default ({ navigation }) => {
           backgroundColor={"transparent"}
           translucent={false}
         />
-        <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
+        <KeyboardAvoidingView>
           <View style={styles.logoBox}>
             <Image
               style={styles.loginLogo}
