@@ -74,14 +74,14 @@ export default ({ navigation }) => {
   return (
     <View style={styles.container}>
       {!loaded || !data[0] ? (
-        <View style={{ ...styles.noneBusBox, flex: 1 }}>
+        <View style={{ ...styles.LoadingBox }}>
           <ActivityIndicator size="large" color="#4B56F1" />
-          <Text style={styles.noneBus}>
+          <Text style={styles.LoadingTxt}>
             실시간 저상버스 정보를 로딩중입니다.
           </Text>
         </View>
       ) : (
-        <ScrollView>
+        <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
           <LinearGradient colors={["#00427E", "#002548"]}>
             <View style={styles.Header}>
               <Text style={styles.bitHeaderFont}>{busStationName}</Text>
@@ -131,7 +131,9 @@ export default ({ navigation }) => {
           })}
           {!busExist && (
             <View style={styles.noneBusBox}>
-              <Text>현재 저상버스 도착정보가 없습니다.</Text>
+              <Text style={styles.noneBus}>
+                현재 저상버스 도착정보가 없습니다.
+              </Text>
             </View>
           )}
         </ScrollView>
@@ -238,6 +240,16 @@ const styles = StyleSheet.create({
     width: windowWidth > 768 ? 24 : 32,
     height: windowWidth > 768 ? 24 : 32,
     marginRight: 5,
+  },
+  LoadingBox: {
+    justifyContent: "center",
+    alignItems: "center",
+    flex: 1,
+  },
+  LoadingTxt: {
+    textAlign: "center",
+    fontSize: 28,
+    marginTop: 10,
   },
   noneBusBox: {
     justifyContent: "center",
